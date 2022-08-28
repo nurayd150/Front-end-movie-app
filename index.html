@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+     
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-bg-danger">FİLM İZLE</h1>
+      <div class="row ">
+          <input
+          type="text"
+          id="userText"
+          class="userInfo  "
+          placeholder="İstediğiniz filmi aratın"
+        />
+
+          <button class="button col-md-4" id="btnSearch" >
+          Search
+          </button>
+        </div>
+      </div>
+      <script>
+        var container=document.createElement("div")
+        container.classList.add("container")
+        document.body.appendChild(container)
+        var row=document.createElement("div")
+        row.classList.add("row")
+        var banner=document.createElement("div")
+        banner.classList.add("banner")
+        row.appendChild(banner)
+        container.appendChild(row)
+        window.addEventListener("scroll", () => {
+          allMovie.splice(0, 10);
+          if (allMovie.length != 0) {
+            for (var i = 0; i <= 9; i++) {
+              var y = document.createElement("input");
+              y.setAttribute("type","text")
+              y.setAttribute("id","text")
+              y.classList.add("textInfo")
+              y.setAttribute("value",allMovie[i].titleText.text)
+               
+              var x = document.createElement("IMG");
+              x.setAttribute("src", allMovie[i].primaryImage.url);
+              x.setAttribute("id", "images");
+              x.setAttribute("alt", "");
+              x.classList.add("info");
+              banner.appendChild(x);
+              banner.appendChild(y);
+            }
+          }
+        });
+        const options = {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Key":
+              "d208f6567bmshe4cc93f28e3403fp1ec35ajsnd60249b08310",
+            "X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com",
+          },
+        };
+        allMovie=0;
+        var btnSearch = document.getElementById("btnSearch");
+        var moviesOfSearched=document.getElementById("userText")
+        
+        btnSearch.addEventListener("click", function(){
+          var x=document.getElementsByTagName("IMG")
+          console.log(x)
+          for(var i=0;i<10;i++){
+            x[i].style.display='none'
+            console.log(i)
+            
+           }
+           console.log("uzunluk",x.length)
+
+         
+          var a= moviesOfSearched.value
+          allMovie=0
+          const url = `https://moviesdatabase.p.rapidapi.com/titles/search/title/${a}?info=mini_info&limit=50&page=1&titleType=movie`;
+          fetch(url, options)
+            .then((response) => response.json())
+            .then((response) => displayImages(response.results));
+            
+        }
+        )
+       
+        var lastMovieIndex = 0;
+          fetch(
+            "https://moviesdatabase.p.rapidapi.com/titles/search/title/movie?info=mini_info&limit=50&page=1&titleType=movie",
+              options
+            )
+             .then((response) => response.json())
+            .then((response) => displayImages(response.results));
+        // .catch(err => console.error(err));
+     
+        function displayImages(movies) {
+          // document.getElementById("images").src=image_url;
+          allMovie=[]
+          movies = movies.filter((x) => x["primaryImage"] != null);
+          allMovie = movies;
+
+          while (lastMovieIndex <= 9) {
+            var y = document.createElement("input");
+            y.setAttribute("type","text")
+            y.setAttribute("id","text")
+            y.classList.add("textInfo")
+            y.setAttribute("value",`${allMovie[lastMovieIndex].titleText.text}`)
+            console.log(allMovie[lastMovieIndex].titleText.text)
+            var x = document.createElement("IMG");
+            x.setAttribute("src", allMovie[lastMovieIndex].primaryImage.url);
+            x.setAttribute("id", "images");
+            x.setAttribute("alt", "");
+            x.classList.add("info");
+           
+            banner.appendChild(x);
+            banner.appendChild(y);
+            
+
+            // images[i]=movies[i].primaryImage.url
+
+            console.log(movies[lastMovieIndex].titleText.text);
+
+            lastMovieIndex++;
+
+            console.log(lastMovieIndex);
+          }
+        }
+
+      </script>
+      <style>
+        body{
+          background-color:black;
+          
+        }
+        h1{
+          color:red;
+          font-size:100px;
+        }
+      </style>
+    </div>
+  </body>
+</html>

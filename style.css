@@ -1,0 +1,85 @@
+body,html{
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.button{
+    border-radius:20px;
+    background-color: red;
+    color: white;
+    width: 300px;
+    height:50px
+}
+.container{
+    width: 1280px;
+    /* overflow: scroll; */
+}
+button:hover{
+    transform: scale(0.98);
+}
+button:focus{
+    outline:none;
+}
+.userInfo{
+    width: 720px;
+    height: 50px;
+}
+
+p{
+    width: 300px;
+    height: 300px;
+    background-color: aliceblue;
+    margin: 10px;
+}
+.container{
+    flex-wrap: wrap;
+}
+.banner{
+    justify-content: space-between;
+    display: block;
+    align-items: center;
+}
+.info{
+    width: 250px;
+    height: 500px;
+    margin-left:30px;
+    border:10px;
+    margin-top: 30px;
+    margin-inline-start: 50px;
+}
+.info:hover  {
+    transform: scale(1.1);
+    visibility: visible;
+}
+.info:hover +.textInfo {
+    transform:scale(1.1);
+    visibility: visible;
+}
+.row{
+    justify-content: center;
+}
+.textInfo{
+    background-color: gray;
+    width:250px;
+    height:125px;
+    color:white;
+    font-size: large;
+    position:absolute;
+    text-align: center;
+    margin-left: -250px;
+    margin-top: 430px;
+    visibility: hidden;
+    padding: 2px;
+    overflow-wrap: anywhere;
+}
+.h1{
+    color: red;
+}
+.banner{
+    position: relative;
+}
